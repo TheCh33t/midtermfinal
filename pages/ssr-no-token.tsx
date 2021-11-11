@@ -1,8 +1,8 @@
-import React, { VFC } from 'react'
+ import React, { VFC } from 'react'
 import {
   useAuthUser,
   withAuthUser,
-  withAuthUserSSR,
+  withAuthUserTokenSSR,
   AuthAction,
 } from 'next-firebase-auth'
 import Header from '../components/Header'
@@ -52,7 +52,7 @@ const Demo: VFC<DataType> = ({ favoriteColor }) => {
 
 Demo.defaultProps = defaultProps
 
-export const getServerSideProps = withAuthUserSSR({
+export const getServerSideProps = withAuthUserTokenSSR({
   whenUnauthed: AuthAction.REDIRECT_TO_LOGIN,
 })(async ({ AuthUser, req }) => {
   // The ID token will be null, because `withAuthUserSSR` does not
@@ -84,3 +84,4 @@ export const getServerSideProps = withAuthUserSSR({
 export default withAuthUser<DataType>({
   whenUnauthedAfterInit: AuthAction.REDIRECT_TO_LOGIN,
 })(Demo)
+
